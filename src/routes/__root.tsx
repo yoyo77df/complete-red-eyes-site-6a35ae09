@@ -40,10 +40,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Esports Join Hub" },
+      { title: "Red Eyes Interview" },
       { name: "description", content: "Join the next generation of esports teams." },
-      { property: "og:title", content: "Esports Join Hub" },
-      { name: "twitter:title", content: "Esports Join Hub" },
+      { property: "og:title", content: "Red Eyes Interview" },
+      { name: "twitter:title", content: "Red Eyes Interview" },
       { property: "og:description", content: "Join the next generation of esports teams." },
       { name: "twitter:description", content: "Join the next generation of esports teams." },
       { name: "twitter:card", content: "summary" },
