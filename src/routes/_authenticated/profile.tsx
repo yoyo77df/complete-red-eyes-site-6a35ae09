@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
+import { resolveProfileImage } from "@/lib/profile-image";
 import { Badge } from "@/components/ui/badge";
 
 export const Route = createFileRoute("/_authenticated/profile")({ component: Profile });
