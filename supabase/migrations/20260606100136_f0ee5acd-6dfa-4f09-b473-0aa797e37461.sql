@@ -76,7 +76,7 @@ CREATE POLICY "Users manage own application" ON public.recruitment_applications
 
 CREATE TABLE public.site_settings (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  site_title TEXT NOT NULL DEFAULT 'Esports Join Hub',
+  site_title TEXT NOT NULL DEFAULT 'Red Eyes Interview',
   logo_url TEXT,
   theme TEXT NOT NULL DEFAULT 'dark-red',
   primary_color TEXT NOT NULL DEFAULT '#DC143C',
@@ -95,7 +95,7 @@ CREATE POLICY "Admins manage site settings" ON public.site_settings
   USING (public.has_role(auth.uid(), 'admin'))
   WITH CHECK (public.has_role(auth.uid(), 'admin'));
 
-INSERT INTO public.site_settings (site_title, theme, primary_color) VALUES ('Esports Join Hub', 'dark-red', '#DC143C');
+INSERT INTO public.site_settings (site_title, theme, primary_color) VALUES ('Red Eyes Interview', 'dark-red', '#DC143C');
 
 CREATE OR REPLACE FUNCTION public.update_updated_at_column()
 RETURNS TRIGGER LANGUAGE plpgsql SET search_path = public AS $$
