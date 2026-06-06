@@ -78,10 +78,11 @@ export async function exportZip(app: AppRow) {
   zip.file(`${safeName(app.in_game_name)}.txt`, toTxt(app));
   if (app.profile_image_url) {
     try {
-      const res = await fetch(app.profile_image_url);
-      const blob = await res.blob();
-      const ext = (blob.type.split("/")[1] ?? "jpg").split("+")[0];
-      zip.file(`${safeName(app.in_game_name)}.${ext}`, blob);
+      const blob = await fetchProfileImageBlob(app.profile_image_url);
+      if (blob) {
+        const ext = (blob.type.split("/")[1] ?? "jpg").split("+")[0];
+        zip.file(`${safeName(app.in_game_name)}.${ext}`, blob);
+      }
     } catch { /* ignore image fetch failure */ }
   }
   const out = await zip.generateAsync({ type: "blob" });
