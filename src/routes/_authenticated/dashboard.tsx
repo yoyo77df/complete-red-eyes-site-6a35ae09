@@ -106,9 +106,19 @@ function DashboardForm() {
         ...(imagePath ? { profile_image_url: imagePath } : {}),
       };
 
-      const { error } = existingId
+      let { error } = existingId
         ? await supabase.from("recruitment_applications").update(payload).eq("id", existingId)
         : await supabase.from("recruitment_applications").insert(payload);
+
+      // Handle race: another submission already created a row for this user.
+      // The DB enforces one application per user via a UNIQUE constraint.
+      if (error && !existingId && (error as { code?: string }).code === "23505") {
+        const upd = await supabase
+          .from("recruitment_applications")
+          .update(payload)
+          .eq("user_id", user.id);
+        error = upd.error;
+      }
 
       if (error) throw error;
       toast.success(existingId ? "Application updated!" : "Application submitted!");
