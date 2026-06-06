@@ -53,7 +53,9 @@ function DashboardForm() {
           future_plan: data.future_plan, dedication: data.dedication, active_time: data.active_time,
         });
         setSocials((data.socials as Record<string, string>) ?? {});
-        if (data.profile_image_url) setImagePreview(data.profile_image_url);
+        if (data.profile_image_url) {
+          resolveProfileImage(data.profile_image_url).then((url) => { if (url) setImagePreview(url); });
+        }
       }
     });
   }, [user]);
