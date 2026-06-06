@@ -19,6 +19,7 @@ interface App {
 function Profile() {
   const { user, isAdmin } = useAuth();
   const [app, setApp] = useState<App | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
