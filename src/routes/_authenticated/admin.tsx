@@ -30,7 +30,12 @@ function AdminPanel() {
   const refresh = async () => {
     setFetching(true);
     const { data } = await supabase.from("recruitment_applications").select("*").order("created_at", { ascending: false });
-    setApps((data as AppRow[]) ?? []);
+    const rows = (data as AppRow[]) ?? [];
+    setApps(rows);
+    const entries = await Promise.all(
+      rows.filter((r) => r.profile_image_url).map(async (r) => [r.id, await resolveProfileImage(r.profile_image_url)] as const),
+    );
+    setImageUrls(Object.fromEntries(entries.filter(([, u]) => u)) as Record<string, string>);
     setFetching(false);
   };
 
