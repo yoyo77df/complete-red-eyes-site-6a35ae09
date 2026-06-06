@@ -6,6 +6,7 @@ import { BANGLADESH_DISTRICTS } from "@/lib/districts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { resolveProfileImage } from "@/lib/profile-image";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -52,7 +53,9 @@ function DashboardForm() {
           future_plan: data.future_plan, dedication: data.dedication, active_time: data.active_time,
         });
         setSocials((data.socials as Record<string, string>) ?? {});
-        if (data.profile_image_url) setImagePreview(data.profile_image_url);
+        if (data.profile_image_url) {
+          resolveProfileImage(data.profile_image_url).then((url) => { if (url) setImagePreview(url); });
+        }
       }
     });
   }, [user]);
@@ -83,13 +86,12 @@ function DashboardForm() {
     if (!user) return;
     setBusy(true);
     try {
-      let imageUrl: string | undefined;
+      let imagePath: string | undefined;
       if (imageFile) {
         const path = `${user.id}/${Date.now()}-${imageFile.name}`;
         const { error: upErr } = await supabase.storage.from("esports-profiles").upload(path, imageFile, { upsert: true });
         if (upErr) throw upErr;
-        const { data: signed } = await supabase.storage.from("esports-profiles").createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
-        imageUrl = signed?.signedUrl;
+        imagePath = path;
       }
 
       const payload = {
@@ -101,7 +103,7 @@ function DashboardForm() {
         contact_number: form.contact_number, whatsapp_number: form.whatsapp_number,
         socials, join_new_team: form.join_new_team === "yes",
         future_plan: form.future_plan, dedication: form.dedication, active_time: form.active_time,
-        ...(imageUrl ? { profile_image_url: imageUrl } : {}),
+        ...(imagePath ? { profile_image_url: imagePath } : {}),
       };
 
       const { error } = existingId

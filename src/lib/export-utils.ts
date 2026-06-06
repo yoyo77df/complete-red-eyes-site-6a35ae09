@@ -1,5 +1,6 @@
 import JSZip from "jszip";
 import * as XLSX from "xlsx";
+import { fetchProfileImageBlob } from "./profile-image";
 
 export interface AppRow {
   id: string;
@@ -50,7 +51,7 @@ ${app.future_plan}
 ${app.dedication}
 
 [IMAGE]
-${app.profile_image_url ?? "(none)"}
+${app.profile_image_url ? "(attached in zip export)" : "(none)"}
 `;
 }
 
@@ -77,10 +78,11 @@ export async function exportZip(app: AppRow) {
   zip.file(`${safeName(app.in_game_name)}.txt`, toTxt(app));
   if (app.profile_image_url) {
     try {
-      const res = await fetch(app.profile_image_url);
-      const blob = await res.blob();
-      const ext = (blob.type.split("/")[1] ?? "jpg").split("+")[0];
-      zip.file(`${safeName(app.in_game_name)}.${ext}`, blob);
+      const blob = await fetchProfileImageBlob(app.profile_image_url);
+      if (blob) {
+        const ext = (blob.type.split("/")[1] ?? "jpg").split("+")[0];
+        zip.file(`${safeName(app.in_game_name)}.${ext}`, blob);
+      }
     } catch { /* ignore image fetch failure */ }
   }
   const out = await zip.generateAsync({ type: "blob" });
@@ -94,7 +96,7 @@ export function exportExcel(app: AppRow) {
     email: app.email, contact_number: app.contact_number, whatsapp_number: app.whatsapp_number,
     active_time: app.active_time, join_new_team: app.join_new_team,
     future_plan: app.future_plan, dedication: app.dedication,
-    socials: JSON.stringify(app.socials), profile_image_url: app.profile_image_url ?? "",
+    socials: JSON.stringify(app.socials), has_profile_image: app.profile_image_url ? "yes" : "no",
     submitted_at: app.created_at,
   };
   const ws = XLSX.utils.json_to_sheet([flat]);

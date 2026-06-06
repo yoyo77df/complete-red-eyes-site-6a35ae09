@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { exportAllExcel, exportAllTxt, exportExcel, exportTxt, exportZip, type AppRow } from "@/lib/export-utils";
 import { FileText, FileSpreadsheet, Package, Trash2, Search, Shield } from "lucide-react";
+import { resolveProfileImage } from "@/lib/profile-image";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/admin")({ component: AdminPanel });
@@ -17,6 +18,7 @@ function AdminPanel() {
   const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const [apps, setApps] = useState<AppRow[]>([]);
+  const [imageUrls, setImageUrls] = useState<Record<string, string>>({});
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [fetching, setFetching] = useState(true);
@@ -28,7 +30,12 @@ function AdminPanel() {
   const refresh = async () => {
     setFetching(true);
     const { data } = await supabase.from("recruitment_applications").select("*").order("created_at", { ascending: false });
-    setApps((data as AppRow[]) ?? []);
+    const rows = (data as AppRow[]) ?? [];
+    setApps(rows);
+    const entries = await Promise.all(
+      rows.filter((r) => r.profile_image_url).map(async (r) => [r.id, await resolveProfileImage(r.profile_image_url)] as const),
+    );
+    setImageUrls(Object.fromEntries(entries.filter(([, u]) => u)) as Record<string, string>);
     setFetching(false);
   };
 
@@ -104,7 +111,7 @@ function AdminPanel() {
                   <td className="p-3"><Checkbox checked={selected.has(a.id)} onCheckedChange={() => toggleSelect(a.id)} /></td>
                   <td className="p-3 font-medium">
                     <div className="flex items-center gap-2">
-                      {a.profile_image_url && <img src={a.profile_image_url} alt="" className="h-8 w-8 rounded object-cover" />}
+                      {imageUrls[a.id] && <img src={imageUrls[a.id]} alt="" className="h-8 w-8 rounded object-cover" />}
                       {a.in_game_name}
                     </div>
                   </td>
