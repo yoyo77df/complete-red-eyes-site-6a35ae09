@@ -50,8 +50,8 @@ function Profile() {
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="glass rounded-2xl p-6">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
-          {app.profile_image_url && (
-            <img src={app.profile_image_url} alt={app.full_name} className="h-28 w-28 rounded-xl object-cover btn-glow" />
+          {imageUrl && (
+            <img src={imageUrl} alt={app.full_name} className="h-28 w-28 rounded-xl object-cover btn-glow" />
           )}
           <div className="flex-1 text-center sm:text-left">
             <h1 className="text-2xl font-bold gradient-text">{app.in_game_name}</h1>
