@@ -1,5 +1,6 @@
 import JSZip from "jszip";
 import * as XLSX from "xlsx";
+import { fetchProfileImageBlob } from "./profile-image";
 
 export interface AppRow {
   id: string;
