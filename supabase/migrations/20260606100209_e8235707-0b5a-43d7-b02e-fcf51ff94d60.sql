@@ -1,0 +1,1 @@
+ALTER TABLE public.recruitment_applications ADD COLUMN IF NOT EXISTS role TEXT NOT NULL DEFAULT '';
