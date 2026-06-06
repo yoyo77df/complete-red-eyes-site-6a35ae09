@@ -111,7 +111,7 @@ function AdminPanel() {
                   <td className="p-3"><Checkbox checked={selected.has(a.id)} onCheckedChange={() => toggleSelect(a.id)} /></td>
                   <td className="p-3 font-medium">
                     <div className="flex items-center gap-2">
-                      {a.profile_image_url && <img src={a.profile_image_url} alt="" className="h-8 w-8 rounded object-cover" />}
+                      {imageUrls[a.id] && <img src={imageUrls[a.id]} alt="" className="h-8 w-8 rounded object-cover" />}
                       {a.in_game_name}
                     </div>
                   </td>
