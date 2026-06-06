@@ -55,6 +55,7 @@ export type Database = {
           in_game_name: string
           join_new_team: boolean
           profile_image_url: string | null
+          role: string
           socials: Json
           updated_at: string
           user_id: string
@@ -76,6 +77,7 @@ export type Database = {
           in_game_name: string
           join_new_team?: boolean
           profile_image_url?: string | null
+          role?: string
           socials?: Json
           updated_at?: string
           user_id: string
@@ -97,6 +99,7 @@ export type Database = {
           in_game_name?: string
           join_new_team?: boolean
           profile_image_url?: string | null
+          role?: string
           socials?: Json
           updated_at?: string
           user_id?: string
