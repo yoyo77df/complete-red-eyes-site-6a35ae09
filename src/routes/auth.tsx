@@ -75,7 +75,7 @@ function AuthPage() {
             </div>
           )}
           <h1 className="text-2xl font-bold gradient-text">{settings?.site_title ?? ""}</h1>
-          <p className="text-center text-sm text-muted-foreground">Join the squad. Compete. Rise.</p>
+          <p className="text-center text-sm text-muted-foreground"># WE WANT DOMINATIONS.</p>
         </div>
 
         {mode === "forgot" ? (
