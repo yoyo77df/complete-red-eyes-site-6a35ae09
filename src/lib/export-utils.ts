@@ -51,7 +51,7 @@ ${app.future_plan}
 ${app.dedication}
 
 [IMAGE]
-${app.profile_image_url ?? "(none)"}
+${app.profile_image_url ? "(attached in zip export)" : "(none)"}
 `;
 }
 
