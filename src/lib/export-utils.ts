@@ -96,7 +96,7 @@ export function exportExcel(app: AppRow) {
     email: app.email, contact_number: app.contact_number, whatsapp_number: app.whatsapp_number,
     active_time: app.active_time, join_new_team: app.join_new_team,
     future_plan: app.future_plan, dedication: app.dedication,
-    socials: JSON.stringify(app.socials), profile_image_url: app.profile_image_url ?? "",
+    socials: JSON.stringify(app.socials), has_profile_image: app.profile_image_url ? "yes" : "no",
     submitted_at: app.created_at,
   };
   const ws = XLSX.utils.json_to_sheet([flat]);
