@@ -103,7 +103,7 @@ function DashboardForm() {
         contact_number: form.contact_number, whatsapp_number: form.whatsapp_number,
         socials, join_new_team: form.join_new_team === "yes",
         future_plan: form.future_plan, dedication: form.dedication, active_time: form.active_time,
-        ...(imageUrl ? { profile_image_url: imageUrl } : {}),
+        ...(imagePath ? { profile_image_url: imagePath } : {}),
       };
 
       const { error } = existingId
