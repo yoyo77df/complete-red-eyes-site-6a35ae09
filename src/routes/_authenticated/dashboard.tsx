@@ -86,13 +86,12 @@ function DashboardForm() {
     if (!user) return;
     setBusy(true);
     try {
-      let imageUrl: string | undefined;
+      let imagePath: string | undefined;
       if (imageFile) {
         const path = `${user.id}/${Date.now()}-${imageFile.name}`;
         const { error: upErr } = await supabase.storage.from("esports-profiles").upload(path, imageFile, { upsert: true });
         if (upErr) throw upErr;
-        const { data: signed } = await supabase.storage.from("esports-profiles").createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
-        imageUrl = signed?.signedUrl;
+        imagePath = path;
       }
 
       const payload = {
