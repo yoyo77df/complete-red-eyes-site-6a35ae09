@@ -24,8 +24,10 @@ function Profile() {
 
   useEffect(() => {
     if (!user) return;
-    supabase.from("recruitment_applications").select("*").eq("user_id", user.id).maybeSingle().then(({ data }) => {
-      setApp(data as App | null);
+    supabase.from("recruitment_applications").select("*").eq("user_id", user.id).maybeSingle().then(async ({ data }) => {
+      const row = data as App | null;
+      setApp(row);
+      setImageUrl(await resolveProfileImage(row?.profile_image_url));
       setLoading(false);
     });
   }, [user]);
