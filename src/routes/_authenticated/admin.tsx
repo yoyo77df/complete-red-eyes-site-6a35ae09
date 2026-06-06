@@ -18,6 +18,7 @@ function AdminPanel() {
   const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const [apps, setApps] = useState<AppRow[]>([]);
+  const [imageUrls, setImageUrls] = useState<Record<string, string>>({});
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [fetching, setFetching] = useState(true);
