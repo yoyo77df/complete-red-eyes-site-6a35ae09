@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { exportAllExcel, exportAllTxt, exportExcel, exportTxt, exportZip, type AppRow } from "@/lib/export-utils";
 import { FileText, FileSpreadsheet, Package, Trash2, Search, Shield } from "lucide-react";
+import { resolveProfileImage } from "@/lib/profile-image";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/admin")({ component: AdminPanel });
