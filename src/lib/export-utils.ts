@@ -14,6 +14,7 @@ export interface AppRow {
   email: string;
   contact_number: string;
   whatsapp_number: string;
+  role: string;
   socials: Record<string, string>;
   join_new_team: boolean;
   future_plan: string;
@@ -38,6 +39,7 @@ Date of Birth:    ${app.date_of_birth}
 Email:            ${app.email}
 Contact Number:   ${app.contact_number}
 WhatsApp:         ${app.whatsapp_number}
+Selected Role:    ${app.role || "(not specified)"}
 Active Time:      ${app.active_time}
 Join New Team:    ${app.join_new_team ? "Yes" : "No"}
 
@@ -94,7 +96,7 @@ export function exportExcel(app: AppRow) {
     full_name: app.full_name, in_game_name: app.in_game_name, game_uid: app.game_uid,
     district: app.district, full_location: app.full_location, date_of_birth: app.date_of_birth,
     email: app.email, contact_number: app.contact_number, whatsapp_number: app.whatsapp_number,
-    active_time: app.active_time, join_new_team: app.join_new_team,
+    active_time: app.active_time, join_new_team: app.join_new_team, role: app.role,
     future_plan: app.future_plan, dedication: app.dedication,
     socials: JSON.stringify(app.socials), has_profile_image: app.profile_image_url ? "yes" : "no",
     submitted_at: app.created_at,
@@ -110,7 +112,7 @@ export function exportAllExcel(apps: AppRow[]) {
     full_name: a.full_name, in_game_name: a.in_game_name, game_uid: a.game_uid,
     district: a.district, full_location: a.full_location, date_of_birth: a.date_of_birth,
     email: a.email, contact_number: a.contact_number, whatsapp_number: a.whatsapp_number,
-    active_time: a.active_time, join_new_team: a.join_new_team,
+    active_time: a.active_time, join_new_team: a.join_new_team, role: a.role,
     socials: JSON.stringify(a.socials), submitted_at: a.created_at,
   }));
   const ws = XLSX.utils.json_to_sheet(rows);
