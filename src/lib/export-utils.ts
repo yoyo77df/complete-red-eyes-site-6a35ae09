@@ -39,7 +39,6 @@ Date of Birth:    ${app.date_of_birth}
 Email:            ${app.email}
 Contact Number:   ${app.contact_number}
 WhatsApp:         ${app.whatsapp_number}
-Selected Role:    ${app.role || "(not specified)"}
 Active Time:      ${app.active_time}
 Join New Team:    ${app.join_new_team ? "Yes" : "No"}
 
