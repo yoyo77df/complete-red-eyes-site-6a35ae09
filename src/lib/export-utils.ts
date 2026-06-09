@@ -14,6 +14,7 @@ export interface AppRow {
   email: string;
   contact_number: string;
   whatsapp_number: string;
+  role: string;
   socials: Record<string, string>;
   join_new_team: boolean;
   future_plan: string;
