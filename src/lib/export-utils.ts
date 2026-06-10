@@ -95,7 +95,7 @@ export function exportExcel(app: AppRow) {
     full_name: app.full_name, in_game_name: app.in_game_name, game_uid: app.game_uid,
     district: app.district, full_location: app.full_location, date_of_birth: app.date_of_birth,
     email: app.email, contact_number: app.contact_number, whatsapp_number: app.whatsapp_number,
-    active_time: app.active_time, join_new_team: app.join_new_team,
+    role: app.role, active_time: app.active_time, join_new_team: app.join_new_team,
     future_plan: app.future_plan, dedication: app.dedication,
     socials: JSON.stringify(app.socials), has_profile_image: app.profile_image_url ? "yes" : "no",
     submitted_at: app.created_at,
@@ -111,7 +111,7 @@ export function exportAllExcel(apps: AppRow[]) {
     full_name: a.full_name, in_game_name: a.in_game_name, game_uid: a.game_uid,
     district: a.district, full_location: a.full_location, date_of_birth: a.date_of_birth,
     email: a.email, contact_number: a.contact_number, whatsapp_number: a.whatsapp_number,
-    active_time: a.active_time, join_new_team: a.join_new_team,
+    role: a.role, active_time: a.active_time, join_new_team: a.join_new_team,
     socials: JSON.stringify(a.socials), submitted_at: a.created_at,
   }));
   const ws = XLSX.utils.json_to_sheet(rows);
